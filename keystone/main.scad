@@ -1,9 +1,13 @@
 include <keystone.scad>
 
-Select = 0; // [0:keystoneCutout, 1:keystonePort]
+Select = 0; // [0:keystoneCutout, 1:keystonePort, 2:keystoneBlank]
+
+Center = false;
 
 if (Select==0) {
-    keystoneCutout();
+    keystoneCutout(center=Center);
 } else if (Select==1) {
-    keystonePort();
+    keystonePort(center=Center);
+} else if (Select==2) {
+    keystoneBlank(center=Center);
 }
