@@ -3,7 +3,7 @@ include <BOSL2/walls.scad>
 include <panels/panels.scad>
 include <m3/m3.scad>
 
-Select = 0; // [0:preview, 1:ventPanel, 2:leftEar, 3:rightEar, 4:singlePiece]
+Select = 0; // [0:preview, 1:ventPanel, 2:leftEar, 3:rightEar, 4:ventFilter, 5:singlePiece]
 
 module 1uVentPanel_singlePiece() {
     union() {
@@ -25,11 +25,11 @@ module 1uVentPanel_leftEar() {
             linear_extrude(11)
                 square([7,44]);
             
-            translate([0,8.3/2,3+7/2])
+            translate([0,8.3/2,3+9/2])
                 rotate([0,90,0])
                     m3x5x4_ThreadedInsert();
 
-            translate([0,44-8.3/2,3+7/2])
+            translate([0,44-8.3/2,3+9/2])
                 rotate([0,90,0])
                     m3x5x4_ThreadedInsert();
         }
@@ -45,17 +45,43 @@ module 1uVentPanel_rightEar() {
                 linear_extrude(11)
                     square([7,44]);
                 
-                translate([0,8.3/2,3+7/2])
+                translate([0,8.3/2,3+9/2])
                     rotate([0,90,0])
                         m3BHCS_counterSinkCutout(7, 0.2);
 
-                translate([0,44-8.3/2,3+7/2])
+                translate([0,44-8.3/2,3+9/2])
                     rotate([0,90,0])
                         m3BHCS_counterSinkCutout(7, 0.2);
 
             }
         }
     }
+}
+
+module 1uVentPanel_capOutline() {
+    polygon([
+        [0,0],
+        [0,11],
+        [7,11],
+        [7,4.4],
+        [6.2,4],
+        [6.2,0]
+    ]);
+}
+
+module 1uVentPanel_cap() {
+    translate([0,44,0])
+        rotate([90,0,0])
+            union() {
+                linear_extrude(44) {
+                    1uVentPanel_capOutline();
+                }
+                
+                cube([7,11,1]);
+                
+                translate([0,0,43])
+                    cube([7,11,1]);
+            }
 }
 
 module 1uVentPanel_panel() {
@@ -65,26 +91,48 @@ module 1uVentPanel_panel() {
                 hex_panel([100, 44, 3], 1.5, 10, frame = 3);
 
             for (x=[0:1:1]) {
-                translate([x*(100-7),0,0])
-                    cube([7,44,11]);
+                translate([x*(100),0,0])
+                    difference() {
+                        mirror([x,0,0])
+                        1uVentPanel_cap();
+                    }
             }
         }
 
-        translate([0,8.3/2,3+7/2])
+        translate([0,8.3/2,3+9/2])
             rotate([0,90,0])
                 m3x5x4_ThreadedInsert();
 
-        translate([0,44-8.3/2,3+7/2])
+        translate([0,44-8.3/2,3+9/2])
             rotate([0,90,0])
                 m3x5x4_ThreadedInsert();
 
-        translate([100-7,8.3/2,3+7/2])
+        translate([100-7,8.3/2,3+9/2])
             rotate([0,90,0])
                 m3BHCS_counterSinkCutout(7, 0.2);
 
-        translate([100-7,44-8.3/2,3+7/2])
+        translate([100-7,44-8.3/2,3+9/2])
             rotate([0,90,0])
                 m3BHCS_counterSinkCutout(7, 0.2);
+    }
+}
+
+module 1uVentPanel_filter() {
+    linear_extrude(1) {
+        polygon([
+            [0,0],
+            [0,1.2],
+            [-0.8,1.2],
+            [-0.8,43.8-1.2],
+            [0,43.8-1.2],
+            [0,43.8],
+            [85.6,43.8],
+            [85.6,43.8-1.2],
+            [85.6+0.8,43.8-1.2],
+            [85.6+0.8,1.2],
+            [85.6,1.2],
+            [85.6,0]
+        ]);
     }
 }
 
@@ -93,7 +141,6 @@ module 1uVentPanel_preview() {
     1uVentPanel_panel();
     translate([-57/2-0.2,0,0]) 1uVentPanel_rightEar();
 }
-    
 
 if (Select == 0) {
     1uVentPanel_preview();
@@ -108,5 +155,9 @@ else if (Select == 3) {
     1uVentPanel_rightEar();
 }
 else if (Select == 4) {
+    1uVentPanel_filter();
+    echo("Print this with open top and bottom in a 40% gyroid infill");
+}
+else if (Select == 5) {
     1uVentPanel_singlePiece();
 }
