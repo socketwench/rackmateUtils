@@ -121,7 +121,7 @@ module 1uVentPanel_filter() {
     linear_extrude(1) {
         polygon([
             [2,0],
-            [2,2],
+            [2,1.2],
             [0,1.2],
             [0,43.8-1.2],
             [2,43.8-1.2],
