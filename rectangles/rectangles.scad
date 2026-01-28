@@ -75,3 +75,22 @@ module chamferRect(rectW, rectH, rectC) {
     offset(delta=rectC, chamfer=true)
         square([rectW-rectC*2, rectH-rectC*2], center=true);
 }
+
+module notchedRect(rect, notch) {
+    let(rectX=rect[0], rectY=rect[1], notchX=notch[0], notchY=notch[1]) {
+        polygon([
+            [notchX,0],
+            [notchX,notchY],
+            [0,notchY],
+            [0,rectY-notchY],
+            [notchX,rectY-notchY],
+            [notchX,rectY],
+            [rectX-notchX,rectY],
+            [rectX-notchX,rectY-notchY],
+            [rectX,rectY-notchY],
+            [rectX,notchY],
+            [rectX-notchX,notchY],
+            [rectX-notchX,0]
+        ]);
+    }
+}

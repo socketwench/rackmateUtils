@@ -1,3 +1,4 @@
+include <../m3/m3.scad>
 
 module iecInletCutoutShape() {
     polygon([
@@ -12,8 +13,8 @@ module iecInletCutoutShape() {
 
 module iecInletCutout() {
     union() {
-        translate([-40/2,0,0]) threadedInsert();
-        translate([40/2,0,0]) threadedInsert();
+        translate([-40/2,0,0]) m3x5x4_ThreadedInsert();
+        translate([40/2,0,0]) m3x5x4_ThreadedInsert();
         
         translate([0,1.6,0])
             linear_extrude(35)

@@ -20,6 +20,14 @@ module m3BHCS_counterSinkCutout(height=5, countsinkHeight=1.6) {
     union() {
         cylinder(countsinkHeight, d=7, $fn=25);
         cylinder(h=height, d=3.8, $fn=25);
+        
+        intersection() {
+            cylinder(h=height, d=7, $fn=25);
+            cube([3.8,7,(countsinkHeight+0.2)*2], center=true);
+        }
+        
+        translate([0,0,(countsinkHeight+0.4)/2])
+            cube([3.8,3.8,countsinkHeight+0.4], center=true);
     }
 }
 

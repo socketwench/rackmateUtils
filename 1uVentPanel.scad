@@ -2,6 +2,7 @@ include <BOSL2/std.scad>
 include <BOSL2/walls.scad>
 include <panels/panels.scad>
 include <m3/m3.scad>
+include <rectangles/rectangles.scad>
 
 Select = 0; // [0:preview, 1:ventPanel, 2:leftEar, 3:rightEar, 4:ventFilter, 5:singlePiece]
 
@@ -119,20 +120,7 @@ module 1uVentPanel_panel() {
 
 module 1uVentPanel_filter() {
     linear_extrude(1) {
-        polygon([
-            [2,0],
-            [2,1.2],
-            [0,1.2],
-            [0,43.8-1.2],
-            [2,43.8-1.2],
-            [2,43.8],
-            [87-2,43.8],
-            [87-2,43.8-1.2],
-            [87,43.8-1.2],
-            [87,1.2],
-            [87-2,1.2],
-            [87-2,0]
-        ]);
+        notchedRect([87.4,43.8],[2,1.2]);
     }
 }
 
