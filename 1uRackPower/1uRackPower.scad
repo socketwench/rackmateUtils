@@ -141,5 +141,11 @@ module 1uRackPower_bodyIecInlet() {
             rotate([0,0,-90])
                 linear_extrude(2)
                     iecInletCutoutShape();
+        
+        translate([-10,0,1.4])
+            rotate([0,0,-90])
+                linear_extrude(2-1.4)
+                    offset(delta=1)
+                        iecInletCutoutShape();
     }
 }
