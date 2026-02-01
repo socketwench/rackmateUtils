@@ -1,6 +1,8 @@
 include <panels/panels.scad>
 include <rectangles/rectangles.scad>
 include <keystone/keystone.scad>
+include <BOSL2/std.scad>
+include <BOSL2/walls.scad>
 
 Select = 0; // [0:psuBrickEar, 1:fitTest, 2:psuBrickEarWithCutout]
 EarType = 1; // [1:1U, 2:2U]
@@ -16,7 +18,7 @@ boxFrame=5;
 CutoutDelta=5;
 
 AddKeystone=0; // [0:No, 1:Yes]
-
+AddHexDeco=0; // [0:No, 1:Yes]
 /**
 // Settings for a TP-Link SG1005P PSU brick
 PsuWidth=60;
@@ -75,6 +77,10 @@ module psuBrickEar() {
                 translate([(257-(PsuDepth-boxDepth*2))/4,earHeight/2,0])
                     keystoneCutout(center=true);
             }
+            
+            if (AddHexDeco == 1) {
+                psuBrickEar_decoCutout();
+            }
         }
     }
 }
@@ -99,6 +105,22 @@ module psuBrickEar_fitTest() {
             translate([PsuWidth+boxThickness*2-3,0,0])
                 square([3, PsuHeight+boxThickness*2]);
         }
+}
+
+module psuBrickEar_decoCutout() {
+    difference() {
+        translate([(194.5-(PsuDepth-boxDepth*2))/2,(44*EarType)/2,0.2])
+            difference() {
+                cube([(222-(PsuDepth-boxDepth*2))/2, 44*EarType, 0.4], center=true);
+                hex_panel([(222-(PsuDepth-boxDepth*2))/2, 44*EarType, 0.4], 1.5, 10, frame = 3);
+            }
+        
+        if (AddKeystone == 1) {
+            translate([(257-(PsuDepth-boxDepth*2))/4,(44*EarType)/2-2,0])
+                linear_extrude(0.4)
+                    square([21.3,22.8], center=true);
+        }
+    }
 }
 
 if (Select == 0) {
