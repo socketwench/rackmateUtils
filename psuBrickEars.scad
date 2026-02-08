@@ -109,7 +109,7 @@ module psuBrickEar_fitTest() {
 
 module psuBrickEar_decoCutout() {
     difference() {
-        translate([(194.5-(PsuDepth-boxDepth*2))/2,(44*EarType)/2,0.2])
+        translate([(222-(PsuDepth-boxDepth*2))/2,(44*EarType)/2,0.2])
             difference() {
                 cube([(222-(PsuDepth-boxDepth*2))/2, 44*EarType, 0.4], center=true);
                 hex_panel([(222-(PsuDepth-boxDepth*2))/2, 44*EarType, 0.4], 1.5, 10, frame = 3);
