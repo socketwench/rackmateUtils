@@ -1,8 +1,8 @@
-include <BOSL2/std.scad>
-include <BOSL2/walls.scad>
-include <panels/panels.scad>
-include <m3/m3.scad>
-include <rectangles/rectangles.scad>
+include <../BOSL2/std.scad>
+include <../BOSL2/walls.scad>
+include <../panels/panels.scad>
+include <../m3/m3.scad>
+include <../rectangles/rectangles.scad>
 
 Select = 0; // [0:preview, 1:ventPanel, 2:leftEar, 3:rightEar, 4:ventFilter, 5:singlePiece]
 
@@ -85,11 +85,10 @@ module 1uVentPanel_cap() {
             }
 }
 
-module 1uVentPanel_panel() {
+module 1uVentPanel_panel(anchor=BOTTOM+LEFT+FRONT) {
     difference() {
         union() {
-            translate([100/2,44/2,3/2])
-                hex_panel([100, 44, 3], 1.5, 10, frame = 3);
+            hex_panel([100, 44, 3], 1.5, 10, frame = 3,anchor=anchor);
 
             for (x=[0:1:1]) {
                 translate([x*(100),0,0])
@@ -122,30 +121,4 @@ module 1uVentPanel_filter() {
     linear_extrude(1) {
         notchedRect([87.4,43.8],[2,1.2]);
     }
-}
-
-module 1uVentPanel_preview() {
-    translate([100.2,0,0]) 1uVentPanel_leftEar();
-    1uVentPanel_panel();
-    translate([-57/2-0.2,0,0]) 1uVentPanel_rightEar();
-}
-
-if (Select == 0) {
-    1uVentPanel_preview();
-}
-else if (Select == 1) {
-    1uVentPanel_panel();
-}
-else if (Select == 2) {
-    1uVentPanel_leftEar();
-}
-else if (Select == 3) {
-    1uVentPanel_rightEar();
-}
-else if (Select == 4) {
-    1uVentPanel_filter();
-    echo("Print this with open top and bottom in a 40% gyroid infill");
-}
-else if (Select == 5) {
-    1uVentPanel_singlePiece();
 }
