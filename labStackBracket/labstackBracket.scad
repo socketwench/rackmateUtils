@@ -1,7 +1,7 @@
 include <../BOSL2/std.scad>
 include <../BOSL2/screws.scad>
-include <labStackModules/labstack_moduleBlank.scad>
-include <panels/panels.scad>
+include <../labStackModules/labstack_moduleBlank.scad>
+include <../panels/panels.scad>
 
 module labstackBracket_moduleInsertHoles() {
     labstack_moduleHolePattern()
@@ -95,9 +95,9 @@ module labstackBracket_center() {
 module labstackBracket_joiner() {
     union() {
         difference() {
-            translate([2.5,40.1,0])
+            translate([2.5-0.1,40.1,0])
                 diff()
-                    cuboid([126.7-20+4.6/2-2.5*2,7.6,3], anchor=BOTTOM, chamfer=0.4, edges=[TOP+LEFT,TOP+FRONT,TOP+BACK])
+                    cuboid([126.7-20+4.6/2-2.5*2-0.1,7.6,3], anchor=BOTTOM, chamfer=0.4, edges=[TOP+LEFT,TOP+FRONT,TOP+BACK])
                         edge_mask(TOP+LEFT)
                             rounding_edge_mask(l=(88-71)/2, d=6, $fn=20);
             
@@ -114,5 +114,3 @@ module labstackBracket_joiner() {
         }
     }
 }
-
-labstackBracket_right();
