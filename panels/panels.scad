@@ -1,7 +1,7 @@
 include <../BOSL2/std.scad>
 
 module panels_hole() {    
-    rect([11, 6], rounding=6/2);
+    rect([11, 6], rounding=6/2, $fn=20);
 }
 
 module panels_1uHoles(pattern=[true,true,true]) {
@@ -24,42 +24,46 @@ module panels_1uEar(w=257/2, h=3) {
     panels_1uEarLeft(w, h);
 }
 
-module panels_1uEarLeft(w=257/2, h=3) {
-    linear_extrude(h)
-        difference() {
-            rect([w, 44], rounding=[0,5,5,0], anchor=FRONT+LEFT);
-            
-            translate([15.875/2,0,0])
-                panels_1uHoles();
-        }
+module panels_1uEarLeft(w=257/2, h=3, center=false) {
+    translate([center ? w/-2 : 0, center ? 44/-2 : 0, 0])
+        linear_extrude(h)
+            difference() {
+                rect([w, 44], rounding=[0,5,5,0], anchor=FRONT+LEFT);
+                
+                translate([15.875/2,0,0])
+                    panels_1uHoles();
+            }
 }
 
-module panels_1uEarRight(w=257/2, h=3) {
-    linear_extrude(h)
-        difference() {
-            rect([w, 44], rounding=[5,0,0,5], anchor=FRONT+LEFT);
-            
-            translate([w-15.875/2,0,0])
-                panels_1uHoles();
-        }
+module panels_1uEarRight(w=257/2, h=3, center=false) {
+    translate([center ? w/-2 : 0, center ? 44/-2 : 0, 0])
+        linear_extrude(h)
+            difference() {
+                rect([w, 44], rounding=[5,0,0,5], anchor=FRONT+LEFT);
+                
+                translate([w-15.875/2,0,0])
+                    panels_1uHoles();
+            }
 }
 
-module panels_2uEarLeft(w=257/2, h=3) {
-    linear_extrude(h)
-        difference() {
-            rect([w, 88], rounding=[0,5,5,0], anchor=FRONT+LEFT);
-            
-            translate([15.875/2,0,0])
-                panels_2uHoles();
-        }
+module panels_2uEarLeft(w=257/2, h=3, center=false) {
+    translate([center ? w/-2 : 0, center ? 88/-2 : 0, 0])
+        linear_extrude(h)
+            difference() {
+                rect([w, 88], rounding=[0,5,5,0], anchor=FRONT+LEFT);
+                
+                translate([15.875/2,0,0])
+                    panels_2uHoles();
+            }
 }
 
-module panels_2uEarRight(w=257/2, h=3) {
-    linear_extrude(h)
-        difference() {
-            rect([w, 88], rounding=[5,0,0,5], anchor=FRONT+LEFT);
-            
-            translate([w-15.875/2,0,0])
-                panels_2uHoles();
-        }
+module panels_2uEarRight(w=257/2, h=3, center=false) {
+    translate([center ? w/-2 : 0, center ? 88/-2 : 0, 0])
+        linear_extrude(h)
+            difference() {
+                rect([w, 88], rounding=[5,0,0,5], anchor=FRONT+LEFT);
+                
+                translate([w-15.875/2,0,0])
+                    panels_2uHoles();
+            }
 }

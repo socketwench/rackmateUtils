@@ -109,16 +109,25 @@ module psuBrickEar_fitTest() {
 
 module psuBrickEar_decoCutout() {
     difference() {
-        translate([(222-(PsuDepth-boxDepth*2))/2,(44*EarType)/2,0.2])
+        translate([57/2,0,0])
             difference() {
-                cube([(222-(PsuDepth-boxDepth*2))/2, 44*EarType, 0.4], center=true);
-                hex_panel([(222-(PsuDepth-boxDepth*2))/2, 44*EarType, 0.4], 1.5, 10, frame = 3);
+                cube([(200-(PsuDepth-boxDepth*2))/2, 44*EarType, 0.4], anchor=BOTTOM+LEFT+FRONT);
+                hex_panel([(200-(PsuDepth-boxDepth*2))/2, 44*EarType, 0.4], 1.5, 10, frame = 3, anchor=BOTTOM+LEFT+FRONT);
             }
         
         if (AddKeystone == 1) {
             translate([(257-(PsuDepth-boxDepth*2))/4,(44*EarType)/2-2,0])
                 linear_extrude(0.4)
                     square([21.3,22.8], center=true);
+        }
+        
+        if (Select == 2) {
+            let (earX=(257-(PsuDepth-boxDepth*2))/2, earY = 44*EarType, cutoutX=boxDepth-CutoutDelta, cutoutY=PsuHeight-CutoutDelta) {
+                    
+                    translate([earX-cutoutX-3, (earY-cutoutY)/2-3, 0])
+                    linear_extrude(0.4)
+                        square([cutoutX+6, cutoutY+6]);
+            }
         }
     }
 }
