@@ -97,7 +97,7 @@ module labstackBracket_joiner() {
         difference() {
             translate([2.5-0.1,40.1,0])
                 diff()
-                    cuboid([126.7-20+4.6/2-2.5*2-0.1,7.6,3], anchor=BOTTOM, chamfer=0.4, edges=[TOP+LEFT,TOP+FRONT,TOP+BACK])
+                    cuboid([126.7-20+4.6/2-2.5*2-0.1,7.6,2], anchor=BOTTOM, chamfer=0.4, edges=[TOP+LEFT,TOP+FRONT,TOP+BACK])
                         edge_mask(TOP+LEFT)
                             rounding_edge_mask(l=(88-71)/2, d=6, $fn=20);
             
